@@ -12,29 +12,29 @@ var errorPassword = document.getElementById("errorPassword");
 var errorName = document.getElementById('errorName');  
 var errorPhone = document.getElementById('errorPhone');  
 
+
 // Exercise 6
 function validate() {
     // Validate fields entered by the user: name, phone, password, and email
 
 
     //Evaluacion longitud del nombre usuario
-    if(nameToEvaluate.value.length < 3){
+    if((nameToEvaluate.value.length < 3) || (validateOnlyLetters(nameToEvaluate.value))){
         nameToEvaluate.style.border = '2px solid red';
-        document.getElementById('#errorName').style.color = 'red';
-    }else{
-        console.log('Nombre correcto');
-    }
+        document.getElementById('errorName').style.display = 'block';
+    };
 
     //Evaluacion longitud apellido
-    if(lastName.value.length < 3){
+    if((lastName.value.length < 3) || (validateOnlyLetters(nameToEvaluate.value))) {
         lastName.style.border = '2px solid red';
-    }else{
-        console.log('Apellido correcto');
-    }
+        document.getElementById('errorLastName').style.display = 'block';
+    };
 
     //Evaluacion del mail
-    if(email.value.length < 3){
+    if(validateMail(email.value)){
         email.style.border = '2px solid red';
+        document.getElementById('errorMail').style.display = 'block'; 
+        console.log('Email incorrecto');
     }else{
         console.log('Email correcto');
     }
@@ -42,6 +42,7 @@ function validate() {
     //Evaluacion de la longitud del password
     if(password.value.length < 3){
         password.style.border = '2px solid red';
+        document.getElementById('errorPassword').style.display = 'block';
     }else{
         console.log('Password correcto');
     }
@@ -49,6 +50,7 @@ function validate() {
     //Evaluacion de la direccion 
     if(address.value.length < 3){
         address.style.border  = '2px solid red';
+        document.getElementById('errorAddress').style.display = 'block';
     }else{
         console.log('Direccion correcta');
     }
@@ -60,6 +62,7 @@ function validate() {
     }else{
         console.log('Telefono incorrecto')
         phone.style.border = '2px solid red';
+        document.getElementById('errorPhone').style.display = 'block';
     }
 }
 
@@ -68,6 +71,28 @@ form.addEventListener("submit", (e)=>{
     e.preventDefault();
     validate();
 })
+
+//Funcion validacion letras nombre y apellido
+function validateOnlyLetters(inputtxt){
+    let letters = /^[A-Za-z]+$/;
+    console.log(inputtxt);
+    if(inputtxt.match(letters)){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+//Funcion validacion email
+function validateMail(inputtxt){
+    let letters = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/;
+    console.log('El mail es el siguiente ' + inputtxt);
+    if(inputtxt.match(letters)){
+        return false;
+    }else{
+        return true;
+    }
+}
 
 
 
